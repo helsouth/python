@@ -1,7 +1,7 @@
 import re
 import pandas as pd
 
-# Load the data file
+# Load the data file where pydump.txt is the output of pysecrets users.pwdump renamed to pydump.txt
 with open("pydump.txt", "r") as file:
     data = file.read()
 
