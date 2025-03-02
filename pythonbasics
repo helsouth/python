@@ -22,7 +22,7 @@ for line in data:
     parts = line.strip().split(": ")   # strip removes extra spaces or newlines. splits at colon.
     if len(parts) == 2:  # check that the line has two-part key-value structure
         key, value = parts
-        logs.append({key: value})    #stores the parts in the dictionary in the format {key: value}
+        logs.append({key: value})    #stores the parts in the dictionary in the format {key: value} Dictionaries don't allow duplicates though, I don't think I like this.
 
 # Write to CSV
 with open("log_output.csv", "w", newline="") as csvfile:    #opens output file in w-write mode
