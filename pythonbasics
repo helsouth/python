@@ -1,0 +1,36 @@
+# Step 1: Read a log file. 
+          # Example log format: 
+          # Username: Alice
+          # Timestamp: 2025-03-02 12:00:00
+          # Action: Login
+
+# Step 2: Extract simple key-value pairs.
+# Step 3: Store the parsed data in a list.
+# Save the data as a CSV.
+
+import csv
+
+# Read the log file -  open a file called "logfile.txt" in read mode ("r") 
+with open("logfile.txt", "r") as file:
+    data = file.readlines()  # .readlines() reads the file line by line and stores each line as an item in the list data.
+
+# List to store parsed log entries
+logs = []   #initialises an empty list where the extracted data will be stored
+
+# Process each line
+for line in data:
+    parts = line.strip().split(": ")   # strip removes extra spaces or newlines. splits at colon.
+    if len(parts) == 2:  # check that the line has two-part key-value structure
+        key, value = parts
+        logs.append({key: value})    #stores the parts in the dictionary in the format {key: value}
+
+# Write to CSV
+with open("log_output.csv", "w", newline="") as csvfile:    #opens output file in w-write mode
+    fieldnames = ["Key", "Value"]                           #defines the column headers key, value
+    writer = csv.DictWriter(csvfile, fieldnames=fieldnames) # writes each log entry in csv format, automatically matching keys with columns
+    
+    writer.writeheader()                                    #writes the column names as the first row
+    for entry in logs:                                      #adds each entry
+        writer.writerow({"Key": list(entry.keys())[0], "Value": list(entry.values())[0]})
+
+print("Log data saved to log_output.csv")
